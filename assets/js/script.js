@@ -5,40 +5,18 @@ var textAreaEL = document.getElementsByClassName("description") // save to brows
 var savebuttonEl = document.getElementById("#btnSave") // for save button click event
 
 // Save to local storage
-var saveLocal = function () {
-    var linkEl = Event.target.getAttribute('description');
-    var text = document.getElementById(linkEl).value;
-    localStorage.setItem(text, JSON.stringify());
+$(document).ready(function () {
+    // saveBtn click listener 
+    $(".saveBtn").on("click", function () {
+        // Get nearby values of the description in JQuery
+        var text = $(this).siblings(".description").val();
+        var time = $(this).parent().attr("id");
 
-}
+        // Save text in local storage
+        localStorage.setItem(time, text);
 
-
-// function colorTracker() {
-//     var timeNow = moment().hour();
-
-//     $(".time-block").each(function () {
-//         var blockTime = parseInt($(this).attr("id").split("hour")[1]);
-
-//         if (blockTime < timeNow) {
-//             $(this).removeClass("future");
-//             $(this).removeClass("present");
-//             $(this).addClass("past");
-//         } else if (blockTime === timeNow) {
-//             $(this).removeClass("past");
-//             $(this).removeClass("future");
-//             $(this).addClass("present");
-//         } else {
-//             $(this).removeClass("present");
-//             $(this).removeClass("past");
-//             $(this).addClass("future");
-//         } console.log();
-//     }
-//     )
-// }
-
-// when save button is clicked, saveLocal() will save to local Storage
-savebuttonEl.addEventListener('click', saveLocal());
-
-
-// colorTracker();
-
+        // fetch data from localStorage 
+        var data = JSON.parse(localStorage.getItem(time, text))
+    }
+    )
+});
